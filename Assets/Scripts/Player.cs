@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityStandardAssets._2D;
 
 public class Player : MonoBehaviour {
 	private float move;
@@ -15,6 +16,14 @@ public class Player : MonoBehaviour {
 	private bool facingRight = true;
 	// Use this for initialization
 
+    public void SpawnAt(GameObject spawnPoint)
+    {
+		Camera.main.GetComponent<Camera2DFollow>().target = spawnPoint.transform;
+        //transform.position = spawnPoint.transform.position;
+        // this.spawnPoint = spawnPoint;
+        // this.startingPosition = spawnPoint.transform.position;
+		// ResetDropletStateToWater();
+    }
 	void Awake(){
 		DontDestroyOnLoad (this.gameObject);
 
@@ -66,11 +75,13 @@ public class Player : MonoBehaviour {
     }	
 	void OnTriggerEnter2D(Collider2D coll){
 		if (coll.gameObject.tag == "spikes" ) {
+			SpawnPoint.SwitchToLevel (this.gameObject);
+			Debug.Log("Loading scene1");
 			SceneManager.LoadScene("scene1");
 		}
-
-			Debug.Log("DEATH");
 		if (coll.gameObject.tag == "exit" ) {
+			SpawnPoint.SwitchToLevel (this.gameObject);
+			Debug.Log("Loading scene2");
 			SceneManager.LoadScene("scene2");
 		}		
 	}
