@@ -8,22 +8,8 @@ public class SpawnPoint : MonoBehaviour {
 		var playerDroplet = GameState.GetPlayerDroplet();
 		if (playerDroplet != null)
 		{
-			Debug.Log("player is not null");
-			//Debug.Log("Setting droplet start pos: " + GetComponent<Transform>().position);
-			// playerDroplet.StopAllAudio();
-			// playerDroplet.PlayAudio(LevelAmbientSound);
-			
 			playerDroplet.SpawnAt(playerDroplet.gameObject);
 
-			var otherPlayers = GameObject.FindObjectsOfType<Player>();
-			Debug.Log(string.Format("Amount of droplets in scene: {0}", otherPlayers.Length));
-			// for(int i = 0; i < otherPlayers.Length; ++i){
-			// 	var otherPlayer = otherPlayers[i];
-			// 	if(otherPlayer != playerDroplet){
-			// 		Debug.Log(string.Format("Destroying object: {0} because it's not object: {1}", otherPlayer.gameObject.name, playerDroplet.gameObject.name));
-			// 		Destroy(otherPlayer.gameObject);
-			// 	}
-			// }
 		}
 		else
 		{
@@ -39,6 +25,5 @@ public class SpawnPoint : MonoBehaviour {
 		playerObject.GetComponent<Transform>().position = GameObject.FindObjectsOfType<SpawnPoint>()[0].GetComponent<Transform>().position;
 		GameState.SetPlayerDroplet(playerObject);
 		//GameState.GetPlayerDroplet().StopAllAudio();
-		//SceneManager.LoadScene(level);
 	}	
 }

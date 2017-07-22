@@ -19,10 +19,7 @@ public class Player : MonoBehaviour {
     public void SpawnAt(GameObject spawnPoint)
     {
 		Camera.main.GetComponent<Camera2DFollow>().target = spawnPoint.transform;
-        //transform.position = spawnPoint.transform.position;
-        // this.spawnPoint = spawnPoint;
-        // this.startingPosition = spawnPoint.transform.position;
-		// ResetDropletStateToWater();
+
     }
 	void Awake(){
 		DontDestroyOnLoad (this.gameObject);
