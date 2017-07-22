@@ -10,9 +10,11 @@ public class Player : MonoBehaviour {
 	public bool grounded = true;
     public LayerMask whatIsGround;
 	private CircleCollider2D groundCheck;
+	private Animator animator;
 	// Use this for initialization
 	void Start () {
 		groundCheck = GetComponent<CircleCollider2D>();
+		animator = GetComponent<Animator>();
 	}
 
 	
@@ -21,12 +23,19 @@ public class Player : MonoBehaviour {
 		grounded = groundCheck.IsTouchingLayers (whatIsGround);
 
 		move = Input.GetAxis ("Horizontal");
+		if (move != 0) {
+			animator.SetBool("isMoving", true);
+		}
+		else {
+			animator.SetBool("isMoving", false);
+		}
 
 		jump = Input.GetButtonDown ("Jump") || Input.GetButtonDown ("Vertical");
+		
 		//Debug.Log ("move = " + move);
 	}
 	void FixedUpdate () {
-		GetComponent<Rigidbody2D> ().velocity = new Vector2 (move * maxSpeed, GetComponent<Rigidbody2D> ().velocity.y);
+		GetComponent<Rigidbody2D> ().velocity = new Vector2 (move * maxSpeed, GetComponent<Rigidbody2D> ().velocity.y);	
 		if (grounded && jump) {
 			GetComponent<Rigidbody2D> ().AddForce(new Vector2(0f, jumpForce));
 		}
