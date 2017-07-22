@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour {
 	private float move;
@@ -13,6 +14,11 @@ public class Player : MonoBehaviour {
 	private Animator animator;
 	private bool facingRight = true;
 	// Use this for initialization
+
+	void Awake(){
+		DontDestroyOnLoad (this.gameObject);
+
+	}	
 	void Start () {
 		groundCheck = GetComponent<CircleCollider2D>();
 		animator = GetComponent<Animator>();
@@ -58,4 +64,19 @@ public class Player : MonoBehaviour {
         theScale.x *= -1;
         transform.localScale = theScale;
     }	
+	void OnTriggerEnter2D(Collider2D coll){
+		if (coll.gameObject.tag == "spikes" ) {
+			SceneManager.LoadScene("scene1");
+		}
+
+			Debug.Log("DEATH");
+		if (coll.gameObject.tag == "exit" ) {
+			SceneManager.LoadScene("scene2");
+		}		
+	}
+
+	// void OnTriggerExit2D(Collider2D coll){
+	// 	if (coll.gameObject.layer == LayerMask.NameToLayer ("Water"))
+	// 		isTouchingWater = false;
+	// }
 }
