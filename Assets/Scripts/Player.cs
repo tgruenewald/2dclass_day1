@@ -11,6 +11,7 @@ public class Player : MonoBehaviour {
     public LayerMask whatIsGround;
 	private CircleCollider2D groundCheck;
 	private Animator animator;
+	private bool facingRight = true;
 	// Use this for initialization
 	void Start () {
 		groundCheck = GetComponent<CircleCollider2D>();
@@ -23,6 +24,14 @@ public class Player : MonoBehaviour {
 		grounded = groundCheck.IsTouchingLayers (whatIsGround);
 
 		move = Input.GetAxis ("Horizontal");
+		if (move > 0 && !facingRight)
+        {
+            Flip();
+        }
+        else if (move < 0 && facingRight)
+        {
+            Flip();
+        }
 		if (move != 0) {
 			animator.SetBool("isMoving", true);
 		}
@@ -36,8 +45,17 @@ public class Player : MonoBehaviour {
 	}
 	void FixedUpdate () {
 		GetComponent<Rigidbody2D> ().velocity = new Vector2 (move * maxSpeed, GetComponent<Rigidbody2D> ().velocity.y);	
+
 		if (grounded && jump) {
 			GetComponent<Rigidbody2D> ().AddForce(new Vector2(0f, jumpForce));
 		}
 	}
+    void Flip()
+    {
+        //Debug.Log("switching...");
+        facingRight = !facingRight;
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
+    }	
 }
