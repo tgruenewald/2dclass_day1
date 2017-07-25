@@ -16,9 +16,10 @@ public class Player : MonoBehaviour {
 	private bool facingRight = true;
 	// Use this for initialization
 
-    public void SpawnAt(GameObject spawnPoint)
+    public void SpawnAt(GameObject myPlayer)
     {
-		Camera.main.GetComponent<Camera2DFollow>().target = spawnPoint.transform;
+		Camera.main.GetComponent<Camera2DFollow>().target = myPlayer.transform;
+		myPlayer.GetComponent<BoxCollider2D> ().enabled = true;
 
     }
 	void Awake(){
