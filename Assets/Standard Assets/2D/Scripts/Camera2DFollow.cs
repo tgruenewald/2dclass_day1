@@ -15,10 +15,7 @@ namespace UnityStandardAssets._2D
         private Vector3 m_LastTargetPosition;
         private Vector3 m_CurrentVelocity;
         private Vector3 m_LookAheadPos;
-		void Awake(){
-			DontDestroyOnLoad (this.gameObject);
 
-		}	
         // Use this for initialization
         private void Start()
         {
